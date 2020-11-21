@@ -27,10 +27,10 @@ namespace _002.Constraints
             var routeBuilder = new RouteBuilder(app, myRouteHandler);
 
             // само определение маршрута - он должен соответствовать заданному шаблону и ограничению
-            routeBuilder.MapRoute("default",
-                    "{controller}/{action}/{id?}",
-                    new { action = "Index" }
-            );
+            //routeBuilder.MapRoute("default",
+            //        "{controller}/{action}/{id?}",
+            //        new { action = "Index" }
+            //);
 
             //routeBuilder.MapRoute("default",
             //        "{controller}/{action}/{id?}",
@@ -38,10 +38,10 @@ namespace _002.Constraints
             //        new { controller = "^H.*", id = @"\d{2}" }
             //);
 
-            //routeBuilder.MapRoute("default",
-            //        "{controller}/{action}/{id?}",
-            //        new { id = new BoolRouteConstraint() }
-            //);
+            routeBuilder.MapRoute("default",
+                    "{controller}/{action}/{id}", null,
+                    new { id = new BoolRouteConstraint() }
+            );
 
             // строим маршрут
             app.UseRouter(routeBuilder.Build());

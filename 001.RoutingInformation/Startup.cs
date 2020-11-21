@@ -30,16 +30,23 @@ namespace _001.RoutingInformation
             //            await context.Response.WriteAsync($"<br>{element.ToString()}</br>");
             //    });
 
-            routeBuilder.MapRoute("{controller}/{action}/{id}",
+            routeBuilder.MapRoute("{controller}/{action}",
                 async context => {
                     string controller = context.GetRouteValue("controller").ToString();
                     string action = context.GetRouteValue("action").ToString();
-                    string id = context.GetRouteValue("id").ToString();
-                    await context.Response.WriteAsync($"<br>{controller}</br>");
-                    await context.Response.WriteAsync($"<br>{action}</br>");
-                    await context.Response.WriteAsync($"<br>{id}</br>");
+                    await context.Response.WriteAsync($"The route controller is {controller} ");
+                    await context.Response.WriteAsync($" The route action is {action}");
+                   
                 });
 
+            routeBuilder.MapRoute("{controller}/{action}/{id}", async context =>
+            {
+                RouteData data = context.GetRouteData();
+                foreach (var element in data.Values)
+                {
+                    await context.Response.WriteAsync(element.ToString()+" ");
+                }
+            });
             app.UseRouter(routeBuilder.Build());
 
             app.Run(async (context) =>
